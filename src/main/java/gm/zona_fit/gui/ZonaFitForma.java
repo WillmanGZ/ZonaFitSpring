@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 @Component
 public class ZonaFitForma extends JFrame {
@@ -23,12 +23,20 @@ public class ZonaFitForma extends JFrame {
     private JButton limpiarButton;
     IClienteServicio clienteServicio;
     private DefaultTableModel tablaModeloClientes;
+    private Integer idCliente;
 
     @Autowired
     public ZonaFitForma(ClienteServicio clienteServicio) {
         this.clienteServicio = clienteServicio;
         iniciarForma();
         guardarButton.addActionListener(e -> guardarCliente());
+        clientesTabla.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                cargarClienteSeleccionado();
+            }
+        });
     }
 
     private void iniciarForma() {
@@ -86,6 +94,20 @@ public class ZonaFitForma extends JFrame {
         this.clienteServicio.guardarCliente(cliente);
         limpiarFormulario();
         listarClientes();
+    }
+
+    private void cargarClienteSeleccionado() {
+        var renglon = clientesTabla.getSelectedRow();
+        if (renglon != -1) {
+            var id = clientesTabla.getModel().getValueAt(renglon, 0).toString();
+            this.idCliente = Integer.parseInt(id);
+            var nombre = clientesTabla.getModel().getValueAt(renglon, 1).toString();
+            this.nombreTexto.setText(nombre);
+            var apellido = clientesTabla.getModel().getValueAt(renglon, 2).toString();
+            apellidoTexto.setText(apellido);
+            var membresia = clientesTabla.getModel().getValueAt(renglon, 3).toString();
+            membresiaTexto.setText(membresia);
+        }
     }
 
     private void mostrarMensaje(String mensaje) {
