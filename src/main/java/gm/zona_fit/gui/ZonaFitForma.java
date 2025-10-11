@@ -1,5 +1,6 @@
 package gm.zona_fit.gui;
 
+import gm.zona_fit.modelo.Cliente;
 import gm.zona_fit.servicio.ClienteServicio;
 import gm.zona_fit.servicio.IClienteServicio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,8 @@ import org.springframework.stereotype.Component;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 @Component
 public class ZonaFitForma extends JFrame {
@@ -25,6 +28,7 @@ public class ZonaFitForma extends JFrame {
     public ZonaFitForma(ClienteServicio clienteServicio) {
         this.clienteServicio = clienteServicio;
         iniciarForma();
+        guardarButton.addActionListener(e -> guardarCliente());
     }
 
     private void iniciarForma() {
@@ -55,5 +59,42 @@ public class ZonaFitForma extends JFrame {
             };
             this.tablaModeloClientes.addRow(renglonCliente);
         });
+    }
+
+    private void guardarCliente() {
+        if (nombreTexto.getText().trim().isEmpty()) {
+            mostrarMensaje("Proporciona un nombre");
+            nombreTexto.requestFocusInWindow();
+            return;
+        }
+
+        if (membresiaTexto.getText().trim().isEmpty()) {
+            mostrarMensaje("Proporciona una membresía");
+            membresiaTexto.requestFocusInWindow();
+            return;
+        }
+
+        var nombre = nombreTexto.getText();
+        var apellido = apellidoTexto.getText();
+        var membresia = Integer.parseInt(membresiaTexto.getText());
+
+        var cliente = new Cliente();
+        cliente.setNombre(nombre);
+        cliente.setApellido(apellido);
+        cliente.setMembresia(membresia);
+
+        this.clienteServicio.guardarCliente(cliente);
+        limpiarFormulario();
+        listarClientes();
+    }
+
+    private void mostrarMensaje(String mensaje) {
+        JOptionPane.showMessageDialog(this, mensaje);
+    }
+
+    private void limpiarFormulario() {
+        nombreTexto.setText("");
+        apellidoTexto.setText("");
+        membresiaTexto.setText("");
     }
 }
