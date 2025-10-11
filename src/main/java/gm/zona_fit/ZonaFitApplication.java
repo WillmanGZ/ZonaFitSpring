@@ -11,7 +11,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.Scanner;
 
-@SpringBootApplication
+// Desactivamos la inicialización de la fábrica de spring por aca, ya que esto es por consola
+//@SpringBootApplication
 public class ZonaFitApplication implements CommandLineRunner {
 
     @Autowired
@@ -21,12 +22,12 @@ public class ZonaFitApplication implements CommandLineRunner {
     private static final Logger logger = LoggerFactory.getLogger(ZonaFitApplication.class);
     String nl = System.lineSeparator();
 
-    public static void main(String[] args) {
-        logger.info("Iniciando la aplicación");
-        // Levantar la fabrica de spring
-        SpringApplication.run(ZonaFitApplication.class, args);
-        logger.info("Aplicación finalizada");
-    }
+//    public static void main(String[] args) {
+//        logger.info("Iniciando la aplicación");
+//        // Levantar la fabrica de spring
+//        SpringApplication.run(ZonaFitApplication.class, args);
+//        logger.info("Aplicación finalizada");
+//    }
 
     // Metodo para hacer la aplicacion de consola, se ejecutará inmediatamente se monte la fabrica de spring
     @Override
