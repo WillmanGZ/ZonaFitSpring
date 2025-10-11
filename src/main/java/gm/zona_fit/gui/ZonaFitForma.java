@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -38,6 +40,7 @@ public class ZonaFitForma extends JFrame {
             }
         });
         eliminarButton.addActionListener(e -> eliminarCliente());
+        limpiarButton.addActionListener(e -> limpiarFormulario());
     }
 
     private void iniciarForma() {
@@ -48,10 +51,16 @@ public class ZonaFitForma extends JFrame {
     }
 
     private void createUIComponents() {
-        this.tablaModeloClientes = new DefaultTableModel(0, 4);
+        this.tablaModeloClientes = new DefaultTableModel(0, 4) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
         String[] cabeceros = {"Id", "Nombre", "Apellido", "Membresía"};
         this.tablaModeloClientes.setColumnIdentifiers(cabeceros);
         this.clientesTabla = new JTable(tablaModeloClientes);
+        this.clientesTabla.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         // Cargar listado de clientes
         listarClientes();
     }
