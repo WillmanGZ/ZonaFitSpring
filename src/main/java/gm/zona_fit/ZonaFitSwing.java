@@ -9,21 +9,21 @@ import org.springframework.context.ConfigurableApplicationContext;
 
 import javax.swing.*;
 
-@SpringBootApplication
+//@SpringBootApplication
 public class ZonaFitSwing {
-    public static void main(String[] args) {
-        // Configuramos modo oscuro
-        FlatDarculaLaf.setup();
-        // Instancia la fábrica de spring
-        ConfigurableApplicationContext contextoSpring =
-                new SpringApplicationBuilder(ZonaFitSwing.class)
-                        .headless(false)
-                        .web(WebApplicationType.NONE)
-                        .run(args);
-        // Crear un objeto de Swing
-        SwingUtilities.invokeLater(() -> {
-            ZonaFitForma zonaFitForma = contextoSpring.getBean(ZonaFitForma.class);
-            zonaFitForma.setVisible(true);
-        });
-    }
+//    public static void main(String[] args) {
+//        // Configuramos modo oscuro
+//        FlatDarculaLaf.setup();
+//        // Instancia la fábrica de spring
+//        ConfigurableApplicationContext contextoSpring =
+//                new SpringApplicationBuilder(ZonaFitSwing.class)
+//                        .headless(false)
+//                        .web(WebApplicationType.NONE)
+//                        .run(args);
+//        // Crear un objeto de Swing
+//        SwingUtilities.invokeLater(() -> {
+//            ZonaFitForma zonaFitForma = contextoSpring.getBean(ZonaFitForma.class);
+//            zonaFitForma.setVisible(true);
+//        });
+//    }
 }
