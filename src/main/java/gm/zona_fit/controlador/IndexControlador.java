@@ -59,5 +59,15 @@ public class IndexControlador {
         PrimeFaces.current().ajax().update("forma-clientes:mensajes", "forma-clientes:clientes-tabla");
         this.clienteSeleccionado = null;
     }
+
+    public void eliminarCliente() {
+        logger.info("Cliente a eliminar: " + this.clienteSeleccionado);
+        this.clienteServicio.eliminarCliente(this.clienteSeleccionado);
+
+        this.clientes.remove(this.clienteSeleccionado);
+        this.clienteSeleccionado = null;
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Cliente Eliminado"));
+        PrimeFaces.current().ajax().update("forma-clientes:mensajes", "forma-clientes:clientes-tabla");
+    }
 }
 
