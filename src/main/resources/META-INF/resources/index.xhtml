@@ -31,17 +31,34 @@
                                     </div>
                                 </div>
                             </f:facet>
+
                             <p:column headerText="Id">
                                 <h:outputText value="#{cliente.id}"/>
                             </p:column>
+
                             <p:column headerText="Nombre">
                                 <h:outputText value="#{cliente.nombre}"/>
                             </p:column>
+
                             <p:column headerText="Apellido">
                                 <h:outputText value="#{cliente.apellido}"/>
                             </p:column>
+
                             <p:column headerText="Membresía">
                                 <h:outputText value="#{cliente.membresia}"/>
+                            </p:column>
+
+                            <p:column>
+                                <p:commandButton value="Editar" icon="pi pi-pencil"
+                                                 update=":forma-modal:cliente-ventana"
+                                                 process="@this"
+                                                 oncomplete="PF('ventanaModalCliente').show()"
+                                                 class="ui-button-primary"
+                                                 style="margin-right: 0.5rem">
+                                    <f:setPropertyActionListener value="#{cliente}"
+                                                                 target="#{indexControlador.clienteSeleccionado}"/>
+                                    <p:resetInput target=":forma-modal:cliente-ventana"/>
+                                </p:commandButton>
                             </p:column>
                         </p:dataTable>
                     </div>
